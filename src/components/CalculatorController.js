@@ -6,7 +6,7 @@ export const CalculatorContext = React.createContext()
 export const useCalculatorContext = () => useContext(CalculatorContext)
 
 export const CalculatorController = ({ children }) =>{
-    const [value, setValue] = useState("")
+    const [value, setValue] = useState("0")
     const [next, setNext] = useState("")
     const [operation, setOperation] = useState("")
     const result = () => {
@@ -15,7 +15,7 @@ export const CalculatorController = ({ children }) =>{
                 setValue((+value) + (+next))
                 break;
             case '-':
-                setValue((+value) - (+next))
+                setValue(-(+value) + (+next))
                 break;
             case 'x':
                 setValue((+value) * (+next))
@@ -27,17 +27,8 @@ export const CalculatorController = ({ children }) =>{
     }
     const onclickButton = (number) => {
         switch(number) {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-            if(setValue) {
+            default:
+            if(!value.toString().startsWith("0") || value.toString().startsWith("0.")) {
                 setValue(value + number)
             }else {
                 setValue(number)
@@ -68,11 +59,21 @@ export const CalculatorController = ({ children }) =>{
                 setNext("")
                 break;
             case 'AC':
-                setValue("")
+                setValue("0")
                 setNext("")
                 break;
             case 'C':
                 setValue("")
+                break;
+            case '-/+':
+                setValue(value * -1)
+                break;
+            case '.':
+                if(value.toString() === ""){
+                    setValue('0.' + value)
+                }else{
+                    setValue(value + '.')
+                }
                 break;
         }
        

@@ -6,13 +6,12 @@ import Numpad from './Numpad'
 
 function Calculator(){
     return(
-        <div>
+        <center>
+        <div style={{ width: 300 }}>
             <Display />
-                <div>
-                    Calculator
-                </div>
             <Numpad />
         </div>
+        </center>
     )
 }
 
